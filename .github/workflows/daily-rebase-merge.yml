@@ -1,0 +1,39 @@
+name: Daily Rebase and Merge
+
+on:
+  schedule:
+    # This cron job runs at 6:30 AM UTC every day
+    - cron: '30 6 * * *'  # Cron schedule (UTC time)
+
+jobs:
+  rebase-and-merge:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout main branch
+      uses: actions/checkout@v3
+      with:
+        ref: main
+
+    - name: Set up Git
+      run: |
+        git config user.name "GitHub Actions"
+        git config user.email "actions@github.com"
+        
+    - name: Checkout dev branch
+      run: git checkout dev
+
+    - name: Rebase dev branch onto main
+      run: |
+        git fetch origin
+        git rebase origin/main
+
+    - name: Squash and merge dev into main
+      run: |
+        git checkout main
+        git merge --squash dev
+        git commit -m "Squashed commits from dev"
+
+    - name: Push changes to main
+      run: |
+        git push origin main
