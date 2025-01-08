@@ -3,7 +3,7 @@ name: Daily Rebase and Merge
 on:
   schedule:
     # This cron job runs at 8:30 PM UTC every day
-    - cron: '45 20 * * *'
+    - cron: '30 20 * * *'
   workflow_dispatch: 
 
 jobs:
@@ -31,13 +31,15 @@ jobs:
       run: |
         if git diff --quiet origin/main..origin/dev; then
           echo "new-changes=false" >> $GITHUB_ENV
-        else:
+        else
           echo "new-changes=true" >> $GITHUB_ENV
         fi
 
     - name: Exit if no new changes
       if: env.new-changes == 'false'
-      run: echo "No new changes on dev branch. Exiting."
+      run: |
+        echo "No new changes on dev branch. Exiting."
+        exit 0
 
     - name: Checkout dev branch
       if: env.new-changes == 'true'
@@ -47,20 +49,18 @@ jobs:
       if: env.new-changes == 'true'
       run: |
         git fetch origin
-        git rebase origin/main
-      continue-on-error: false 
+        git rebase origin/main || exit 1  
 
     - name: Squash and merge dev into main
       if: env.new-changes == 'true'
       run: |
         git checkout main
         git merge --squash dev
-        git commit -m "Squashed commits from dev"
-      continue-on-error: false 
+        git commit -m "Squashed commits from dev" || exit 1  
 
     - name: Push changes to main
       if: env.new-changes == 'true'
       run: |
-        git push origin main
-      continue-on-error: false 
+        git push origin main || exit 1  
+
 
