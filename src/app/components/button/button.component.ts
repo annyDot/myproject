@@ -1,8 +1,14 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, input } from '@angular/core';
+
+type ButtonType = 'primary' | 'secondary' | 'danger' | 'info';
 
 @Component({
   selector: 'app-button',
   templateUrl: './button.component.html',
-  styleUrl: './button.component.scss',
+  imports: [CommonModule]
 })
-export class ButtonComponent {}
+export class ButtonComponent {
+  type = input<ButtonType>('primary');
+  disabled = input(false);
+}

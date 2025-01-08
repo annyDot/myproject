@@ -1,0 +1,43 @@
+@use 'colors';
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    min-width: 120px;
+
+    &.primary {
+        background-color: colors.$primary;
+        color: colors.$white;
+    }
+
+    &.secondary {
+        border: 1px solid colors.$primary;
+        background-color: colors.$white;
+        color: colors.$primary;
+    }
+
+    &.danger {
+        background-color: colors.$danger;
+        color: colors.$white;
+    }
+
+    &.info {
+        background-color: colors.$info;
+        color: colors.$white;
+    }
+
+
+    &:hover(:not(:disabled)) {
+        filter: brightness(1.5);
+    }
+
+    &:disabled {
+        background-color: colors.$disabled;
+        cursor: not-allowed;
+    }
+}
