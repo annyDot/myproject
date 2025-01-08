@@ -2,8 +2,8 @@ name: Daily Rebase and Merge
 
 on:
   schedule:
-    # This cron job runs at 6:30 AM UTC every day
-    - cron: '30 6 * * *'  # Cron schedule (UTC time)
+    # This cron job runs at 9:30 PM UTC every day
+    - cron: '30 21 * * *'
 
 jobs:
   rebase-and-merge:
@@ -20,20 +20,44 @@ jobs:
         git config user.name "GitHub Actions"
         git config user.email "actions@github.com"
         
+    - name: Fetch dev branch
+      run: git fetch origin dev:dev
+
+    - name: Check if dev has new commits
+      id: check-commits
+      run: |
+        git fetch origin main:main
+        if git log main..dev --oneline | grep -q .; then
+          echo "new-commits=true" >> $GITHUB_ENV
+        else
+          echo "new-commits=false" >> $GITHUB_ENV
+        fi
+
+    - name: Exit if no new commits
+      if: env.new-commits == 'false'
+      run: echo "No new commits on dev branch. Exiting."
+
     - name: Checkout dev branch
+      if: env.new-commits == 'true'
       run: git checkout dev
 
     - name: Rebase dev branch onto main
+      if: env.new-commits == 'true'
       run: |
         git fetch origin
         git rebase origin/main
+      continue-on-error: false 
 
     - name: Squash and merge dev into main
+      if: env.new-commits == 'true'
       run: |
         git checkout main
         git merge --squash dev
         git commit -m "Squashed commits from dev"
+      continue-on-error: false 
 
     - name: Push changes to main
+      if: env.new-commits == 'true'
       run: |
         git push origin main
+      continue-on-error: false 
