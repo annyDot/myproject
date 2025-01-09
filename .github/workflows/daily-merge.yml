@@ -3,7 +3,7 @@ name: Daily Merge and Squash
 on:
   schedule:
     # This cron job runs at 1:00 PM UTC every day
-    - cron: '00 13 * * *'
+    - cron: '35 13 * * *'
   workflow_dispatch: 
 
 jobs:
@@ -65,6 +65,11 @@ jobs:
         git checkout main
         git merge --squash dev
         git commit -m "Squashed commits from dev"
+        git push
+        # Reset dev to main to maintain shared history
+        git checkout dev
+        git reset --hard main
+        git push --force
 
     - name: Push changes to main
       if: env.new-changes == 'true'
