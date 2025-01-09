@@ -2,8 +2,8 @@ name: Daily Merge and Squash
 
 on:
   schedule:
-    # This cron job runs at 3:00 PM UTC every day
-    - cron: '00 15 * * *'
+    # This cron job runs at 8:00 PM UTC every day
+    - cron: '00 20 * * *'
   workflow_dispatch: 
 
 jobs:
