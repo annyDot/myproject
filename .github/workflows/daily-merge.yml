@@ -2,8 +2,8 @@ name: Daily Merge and Squash
 
 on:
   schedule:
-    # This cron job runs at 12:00 AM UTC every day
-    - cron: '00 12 * * *'
+    # This cron job runs at 1:00 PM UTC every day
+    - cron: '00 13 * * *'
   workflow_dispatch: 
 
 jobs:
@@ -68,5 +68,7 @@ jobs:
 
     - name: Push changes to main
       if: env.new-changes == 'true'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        git push origin main
+        git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }} main
