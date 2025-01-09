@@ -42,17 +42,14 @@ jobs:
           exit 0
 
       - name: Checkout dev branch
-        if: env.new-changes == 'true'
         run: git checkout dev
 
       - name: Install dependencies and run tests
-        if: env.new-changes == 'true'
         run: |
           npm install 
           npm run test
 
       - name: Fail if tests fail
-        if: env.new-changes == 'true'
         run: |
           if [ $? -ne 0 ]; then
             echo "Tests failed. Exiting."
@@ -60,7 +57,6 @@ jobs:
           fi
 
       - name: Merge dev into main with squash
-        if: env.new-changes == 'true'
         run: |
           git checkout main
           if git merge --squash dev; then
