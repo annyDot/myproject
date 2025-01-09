@@ -1,0 +1,45 @@
+@use 'button';
+@use 'colors';
+@use 'mixins';
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.5;
+}
+
+html {
+    font-size: 100%;
+}
+
+body {
+    background-color: colors.$white;
+    color: colors.$black;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 0;
+    text-align: left;
+}
