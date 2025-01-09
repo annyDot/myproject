@@ -2,8 +2,8 @@ name: Daily Rebase and Merge
 
 on:
   schedule:
-    # This cron job runs at 08:15 AM UTC every day
-    - cron: '15 08 * * *'
+    # This cron job runs at 09:30 AM UTC every day
+    - cron: '30 09 * * *'
   workflow_dispatch: 
 
 jobs:
