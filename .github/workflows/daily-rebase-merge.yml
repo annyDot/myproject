@@ -1,13 +1,13 @@
-name: Daily Rebase and Merge
+name: Daily Merge and Squash
 
 on:
   schedule:
-    # This cron job runs at 11:00 AM UTC every day
-    - cron: '00 11 * * *'
+    # This cron job runs at 12:00 AM UTC every day
+    - cron: '00 12 * * *'
   workflow_dispatch: 
 
 jobs:
-  rebase-and-merge:
+  merge-and-squash:
     runs-on: ubuntu-latest
 
     steps:
@@ -58,27 +58,15 @@ jobs:
           echo "Tests failed. Exiting."
           exit 1
         fi
-        
-    - name: Rebase dev branch onto main
-      if: env.new-changes == 'true'
-      run: |
-        git fetch origin
-        git rebase origin/main || (
-        git reset -- README.md && 
-        git rebase --continue
-        ) || exit 1 
 
-    - name: Squash and merge dev into main
+    - name: Merge dev into main with squash
       if: env.new-changes == 'true'
       run: |
         git checkout main
         git merge --squash dev
-        git commit -m "Squashed commits from dev" || exit 1  
+        git commit -m "Squashed commits from dev"
 
     - name: Push changes to main
       if: env.new-changes == 'true'
       run: |
-        git push origin main || exit 1  
-
-
-
+        git push origin main
