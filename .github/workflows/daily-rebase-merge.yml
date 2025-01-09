@@ -48,8 +48,8 @@ jobs:
     - name: Install dependencies and run tests
       if: env.new-changes == 'true'
       run: |
-        npm install  # Install dependencies
-        npm run test  # Run tests
+        npm install 
+        npm run test
 
     - name: Fail if tests fail
       if: env.new-changes == 'true'
