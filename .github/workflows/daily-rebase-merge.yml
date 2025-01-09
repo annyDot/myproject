@@ -45,6 +45,20 @@ jobs:
       if: env.new-changes == 'true'
       run: git checkout dev
 
+    - name: Install dependencies and run tests
+      if: env.new-changes == 'true'
+      run: |
+        npm install  # Install dependencies
+        npm run test  # Run tests
+
+    - name: Fail if tests fail
+      if: env.new-changes == 'true'
+      run: |
+        if [ $? -ne 0 ]; then
+          echo "Tests failed. Exiting."
+          exit 1
+        fi
+        
     - name: Rebase dev branch onto main
       if: env.new-changes == 'true'
       run: |
