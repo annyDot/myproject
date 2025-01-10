@@ -24,19 +24,17 @@ export class HomeComponent {
     {
       id: 2,
       name: 'Age',
-      icon: 'home',
       showProperty: 'age',
     },
     {
       id: 3,
       name: 'Status',
-      icon: 'search',
       showProperty: 'status',
     },
     {
       id: 4,
       name: 'City',
-      icon: 'check_circle',
+      icon: 'location_city',
       showProperty: 'city',
     },
   ];

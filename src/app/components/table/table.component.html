@@ -4,10 +4,12 @@
     <tr>
       @for (item of configuration(); track item.id || {}) {
       <th>
-        @if(item.icon) {
-        <app-icon [icon]="item.icon" />
-        }
-        {{ item.name | uppercase }}
+        <div class="th-content">
+          @if(item.icon) {
+          <app-icon [icon]="item.icon" />
+          }
+          {{ item.name | uppercase }}
+        </div>
       </th>
       }
     </tr>

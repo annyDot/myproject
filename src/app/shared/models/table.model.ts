@@ -1,7 +1,7 @@
 export interface TableColumnConfig {
   id: number;
   name: string;
-  icon: string;
+  icon?: string;
   showProperty: string;
 }
 

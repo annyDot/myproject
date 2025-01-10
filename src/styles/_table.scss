@@ -1,4 +1,5 @@
 @use "colors";
+@use "mixins";
 
 .custom-table {
     width: 100%;
@@ -27,6 +28,16 @@
         color: colors.$white;
         font-weight: bold;
         text-transform: uppercase;
+
+        .th-content {
+            @include mixins.flex-align-center;
+            gap: 5px;
+
+            app-icon {
+                position: relative;
+                top: 3px;
+            }
+        }
     }
 
     td {
