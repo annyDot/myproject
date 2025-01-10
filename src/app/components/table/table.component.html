@@ -1,0 +1,28 @@
+@if(configuration()) {
+<table class="custom-table" data-testid="table">
+  <thead>
+    <tr>
+      @for (item of configuration(); track item.id || {}) {
+      <th>
+        @if(item.icon) {
+        <app-icon [icon]="item.icon" />
+        }
+        {{ item.name | uppercase }}
+      </th>
+      }
+    </tr>
+  </thead>
+  <tbody>
+    @if(data().length) { @for (item of data(); track item; let i = $index; let
+    even = $even;) {
+    <tr [ngClass]="{ even }">
+      @for (column of configuration(); track column.id) {
+      <td>
+        {{ item[column.showProperty] }}
+      </td>
+      }
+    </tr>
+    } } @else { No data. }
+  </tbody>
+</table>
+}

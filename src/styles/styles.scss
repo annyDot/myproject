@@ -1,7 +1,8 @@
-@use 'colors';
 @use 'mixins';
 @use 'input';
 @use 'button';
+@use 'icon';
+@use 'table';
 
 *,
 *::before,
@@ -25,22 +26,7 @@ html {
     font-size: 100%;
 }
 
-body {
-    background-color: colors.$white;
-    color: colors.$black;
-}
-
 ul,
 ol {
     list-style: none;
-}
-
-table {
-    border-collapse: collapse;
-}
-
-th,
-td {
-    padding: 0;
-    text-align: left;
 }

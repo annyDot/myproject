@@ -27,10 +27,11 @@ describe('IconComponent', () => {
     expect(iconEl.textContent.trim()).toBe('home');
   });
 
-  it('should apply correct size and color', () => {
+  it('should apply correct size, color and class', () => {
     fixture.componentRef.setInput('icon', 'search');
     fixture.componentRef.setInput('size', '36px');
     fixture.componentRef.setInput('color', 'blue');
+    fixture.componentRef.setInput('class', 'icon-danger');
     fixture.detectChanges();
 
     const iconEl = fixture.nativeElement.querySelector('[data-testid="icon"]');
@@ -38,5 +39,6 @@ describe('IconComponent', () => {
 
     expect(styles.fontSize).toBe('36px');
     expect(styles.color).toBe('blue');
+    expect(iconEl.getAttribute('class')).toContain('icon-danger');
   });
 });

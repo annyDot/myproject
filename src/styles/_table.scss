@@ -1,0 +1,39 @@
+@use "colors";
+
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 3px;
+    overflow: hidden;
+    background-color: colors.$white;
+    border: 1px solid colors.$gray-light;
+
+    th,
+    td {
+        padding: 12px;
+        text-align: left;
+    }
+
+    tr.even {
+        background-color: colors.$gray-light;
+    }
+
+    tr:hover {
+        background-color: colors.$snow;
+    }
+
+    th {
+        background-color: colors.$primary;
+        color: colors.$white;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    td {
+        border-top: 1px solid colors.$snow;
+    }
+
+    tbody tr:last-child td {
+        border-bottom: 1px solid colors.$gray-dark;
+    }
+}
