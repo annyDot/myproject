@@ -1,0 +1,5 @@
+@use 'colors';
+
+* {
+    scrollbar-color: colors.$primary colors.$gray-light-alt;
+}

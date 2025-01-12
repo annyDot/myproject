@@ -1,6 +1,12 @@
-@use 'button';
 @use 'colors';
 @use 'mixins';
+@use 'scrollbar';
+@use 'input';
+@use 'button';
+@use 'icon';
+@use 'table';
+@use 'navbar';
+@use 'sidebar';
 
 *,
 *::before,
@@ -18,28 +24,15 @@ a {
 body {
     font-family: 'Roboto', sans-serif;
     line-height: 1.5;
+    background-color: colors.$white;
+    color: colors.$black;
 }
 
 html {
     font-size: 100%;
 }
 
-body {
-    background-color: colors.$white;
-    color: colors.$black;
-}
-
 ul,
 ol {
     list-style: none;
-}
-
-table {
-    border-collapse: collapse;
-}
-
-th,
-td {
-    padding: 0;
-    text-align: left;
 }
