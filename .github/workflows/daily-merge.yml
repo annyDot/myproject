@@ -2,8 +2,8 @@ name: Daily Merge and Squash
 
 on:
   schedule:
-    # This cron job runs at 8:00 PM UTC every day
-    - cron: '00 20 * * *'
+    # This cron job runs at 7:00 PM UTC every day
+    - cron: '00 19 * * *'
   workflow_dispatch: 
 
 jobs:
@@ -59,7 +59,7 @@ jobs:
       - name: Merge dev into main with squash
         run: |
           git checkout main
-          if git merge --squash dev; then
+          if git merge --squash dev --allow-unrelated-histories; then
             git commit -m "Squashed commits from dev" || echo "Nothing to commit, working tree clean."
             git push
           else
