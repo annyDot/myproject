@@ -1,9 +1,12 @@
 @use 'colors';
 @use 'mixins';
+@use 'scrollbar';
 @use 'input';
 @use 'button';
 @use 'icon';
 @use 'table';
+@use 'navbar';
+@use 'sidebar';
 
 *,
 *::before,

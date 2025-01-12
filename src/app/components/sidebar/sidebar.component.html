@@ -1,0 +1,13 @@
+<div class="sidebar">
+  <ng-container *ngFor="let route of routes()">
+    <div
+      class="sidebar-item"
+      [class.active]="isActive(route)"
+      (click)="activateRoute(route)"
+      [routerLink]="route.path"
+    >
+      <app-icon *ngIf="route.icon" [icon]="route.icon" />
+      <span class="name">{{ route.name }}</span>
+    </div>
+  </ng-container>
+</div>

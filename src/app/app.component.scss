@@ -1,0 +1,16 @@
+@use '../styles/colors' as colors;
+@use '../styles/mixins' as mixins;
+
+:host {
+    display: grid;
+
+    .main {
+        display: flex;
+    }
+
+    .content {
+        padding: 16px;
+        overflow-y: auto;
+        height: 90vh;
+    }
+}

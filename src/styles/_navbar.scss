@@ -1,0 +1,15 @@
+@use "colors";
+@use "mixins";
+
+.navbar {
+    @include mixins.flex-align-center;
+    background-color: colors.$primary;
+    color: colors.$white;
+    padding: 0 16px;
+    height: 60px;
+    font-size: 18px;
+
+    .logo {
+        cursor: pointer;
+    }
+}

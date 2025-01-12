@@ -1,1 +1,8 @@
-<router-outlet />
+<app-navbar [name]="'My Project'" />
+<div class="main">
+  <app-sidebar [routes]="mockRoutes" />
+
+  <div class="content">
+    <router-outlet />
+  </div>
+</div>
