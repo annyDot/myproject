@@ -1,0 +1,45 @@
+name: Daily Deploy to GitHub Pages
+
+on:
+  schedule:
+    # Cron job to run at 6:00 AM UTC every day
+    - cron: '00 06 * * *'  
+  workflow_dispatch:  # Manual trigger also available
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v3
+        with:
+          ref: main  
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '22'  
+
+      - name: Install dependencies
+        run: |
+          npm install
+
+      - name: Run tests
+        run: |
+          npm run test -- --watchAll=false
+
+      - name: Deploy to GitHub Pages if tests pass
+        if: success()
+        run: |
+          npm run build --prod
+
+          # Install gh-pages to deploy the app
+          npm install --save-dev gh-pages
+
+          # Deploy to the gh-pages branch
+          npx gh-pages -d dist/myproject
+
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
