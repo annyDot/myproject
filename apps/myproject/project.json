@@ -28,8 +28,11 @@
           }
         ],
         "styles": [
-          "apps/myproject/src/styles/styles.scss"
+              "libs/component-library/styles/styles.scss"
         ],
+        "stylePreprocessorOptions": {
+          "includePaths": ["libs/component-library/styles"]
+        },
         "scripts": []
       },
       "configurations": {
@@ -79,7 +82,7 @@
           "public"
         ],
         "styles": [
-          "apps/myproject/src/styles/styles.scss"
+          "libs/component-library/styles/styles.scss"
         ],
         "scripts": []
       }

@@ -8,6 +8,13 @@
     "module": "ES2022",
     "skipLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@component-library/components": [
+        "libs/component-library/components"
+      ],
+      "@component-library/styles/*": [
+        "libs/component-library/styles/*"
+      ]
+    }
   }
 }
