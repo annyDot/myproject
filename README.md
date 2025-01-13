@@ -1,59 +1,53 @@
-# Myproject
+# MyProject
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.6.
+## Project Structure
 
-## Development server
+The Nx workspace is organized into the following main folders:
 
-To start a local development server, run:
+- `apps/` - Contains all applications
+- `libs/` - Contains reusable libraries
+
+### Styles and Assets
+
+- Shared styles are imported from `libs/component-library/styles/styles.scss`.
+- Public assets are served from the `public/` folder.
+
+## Development Server
+
+To start the development server for `myproject`, run:
 
 ```bash
-ng serve
+npx nx serve myproject
 ```
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-## Code scaffolding
+## Building the Application
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+To build `myproject` for production, use the following command:
 
 ```bash
-ng generate --help
+npx nx build myproject --configuration=production
 ```
 
-## Building
+The build artifacts will be stored in the `dist/myproject` directory. You can also build in development mode by specifying `--configuration=development`.
 
-To build the project run:
+## Running Unit Tests
+
+To execute unit tests for `myproject` using [Jest](https://jestjs.io), run:
 
 ```bash
-ng build
+npx nx test myproject
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Linting
 
-## Running unit tests
+- Run linting for `myproject`:
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+  ```bash
+  npx nx lint myproject
+  ```
 
-```bash
-ng test
-```
+## Learn More
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+For more details about Nx, visit the [Nx documentation](https://nx.dev/). For Angular-specific tools and information, check the [Angular documentation](https://angular.dev).
