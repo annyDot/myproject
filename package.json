@@ -6,7 +6,7 @@
     "start": "nx serve myproject",
     "build": "nx build",
     "watch": "nx build --watch --configuration development",
-    "deploy": "nx build myproject --prod && gh-pages -d dist/myproject",
+    "deploy": "nx build myproject --prod && gh-pages -d dist/myproject/browser",
     "test": "nx test myproject",
     "lint": "nx lint myproject"
   },
