@@ -5,10 +5,17 @@ import {
   NavbarComponent,
   SidebarComponent,
 } from '@component-library/components';
+import { LoginComponent } from './features/login/login.component';
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, RouterOutlet, NavbarComponent, SidebarComponent],
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    NavbarComponent,
+    SidebarComponent,
+    LoginComponent,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
