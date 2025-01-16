@@ -40,7 +40,6 @@ module.exports = [
       eqeqeq: ["error", "always"],
       "no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
       "consistent-return": "error",
-      "no-trailing-spaces": "error",
       "prefer-const": "error",
     },
   },

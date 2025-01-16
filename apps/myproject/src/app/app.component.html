@@ -1,4 +1,8 @@
-<app-navbar [name]="'My Project'" />
+<app-navbar [name]="'My Project'">
+  <div class="login-container">
+    <app-login />
+  </div>
+</app-navbar>
 <div class="main">
   <app-sidebar [routes]="mockRoutes" />
 
