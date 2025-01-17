@@ -22,16 +22,16 @@
         "tsConfig": "apps/myproject/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
-          {
-            "glob": "**/*",
-            "input": "public"
-          }
+          "apps/myproject/src/assets",
+          "apps/myproject/src/favicon.ico"
         ],
         "styles": [
-              "libs/component-library/styles/styles.scss"
+          "libs/component-library/styles/styles.scss"
         ],
         "stylePreprocessorOptions": {
-          "includePaths": ["libs/component-library/styles"]
+          "includePaths": [
+            "libs/component-library/styles"
+          ]
         },
         "scripts": []
       },
