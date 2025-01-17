@@ -1,8 +1,7 @@
 <div class="login-container">
-  @if(isAuthenticated) {
+  @if(isAuthenticated()) {
   <div class="d-flex">
-    <span>Welcome, {{ username }}!</span>
-    <app-button (click)="logout()">Logout</app-button>
+    <app-button (click)="logout()">Logout {{ username() }} </app-button>
   </div>
   } @else {
   <app-button (click)="login()">Login</app-button>
