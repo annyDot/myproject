@@ -41,6 +41,7 @@ module.exports = [
       "no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
       "consistent-return": "error",
       "prefer-const": "error",
+      "no-empty-function": "off",
     },
   },
 ];

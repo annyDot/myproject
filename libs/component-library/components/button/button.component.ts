@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
-type ButtonType = 'primary' | 'secondary' | 'danger' | 'info';
+export type ButtonClass = 'primary' | 'secondary' | 'danger' | 'info';
+export type ButtonType = 'button' | 'submit' | 'reset';
 
 @Component({
   selector: 'app-button',
@@ -10,6 +11,7 @@ type ButtonType = 'primary' | 'secondary' | 'danger' | 'info';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonComponent {
-  type = input<ButtonType>('primary');
+  class = input<ButtonClass>('primary');
+  type = input<ButtonType>('button');
   disabled = input(false);
 }

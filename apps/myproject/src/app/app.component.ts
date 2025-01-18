@@ -1,3 +1,5 @@
+import { OverlayModule } from '@angular/cdk/overlay';
+import { PortalModule } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
@@ -15,6 +17,8 @@ import { LoginComponent } from './features/login/login.component';
     NavbarComponent,
     SidebarComponent,
     LoginComponent,
+    OverlayModule,
+    PortalModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

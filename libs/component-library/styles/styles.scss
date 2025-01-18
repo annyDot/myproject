@@ -1,3 +1,4 @@
+@use '@angular/cdk' as cdk;
 @use 'colors';
 @use 'mixins';
 @use 'scrollbar';
@@ -7,6 +8,7 @@
 @use 'table';
 @use 'navbar';
 @use 'sidebar';
+@use 'modal';
 
 *,
 *::before,

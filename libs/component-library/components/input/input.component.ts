@@ -39,11 +39,15 @@ type InputType =
 })
 export class InputComponent implements ControlValueAccessor {
   type = input<InputType>('text');
+  id = input('');
+  labelTxt = input('');
   placeholder = input('');
   disabled = model(false);
+  invalid = input(false);
+  errorMessage = input('');
   value = model('');
 
-  onChange = () => {};
+  onChange = (v: string) => {};
   onTouched = () => {};
 
   writeValue(value: string): void {
@@ -60,5 +64,11 @@ export class InputComponent implements ControlValueAccessor {
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled.set(isDisabled);
+  }
+
+  onInputChange(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    this.writeValue(inputElement.value);
+    this.onChange(this.value());
   }
 }
