@@ -1,6 +1,6 @@
+import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ButtonComponent } from './button.component';
-import { CommonModule } from '@angular/common';
 
 describe('ButtonComponent', () => {
   let fixture: ComponentFixture<ButtonComponent>;
@@ -21,19 +21,33 @@ describe('ButtonComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should apply default type "primary"', () => {
+  it('should apply default class "primary"', () => {
     fixture.detectChanges();
 
     expect(buttonEl.classList).toContain('primary');
   });
 
-  it('should apply the correct type when type input is set', () => {
-    fixture.componentRef.setInput('type', 'danger');
+  it('should apply the correct class when class input is set', () => {
+    fixture.componentRef.setInput('class', 'danger');
 
     fixture.detectChanges();
 
     expect(buttonEl.classList).toContain('danger');
     expect(buttonEl.classList).not.toContain('primary');
+  });
+
+  it('should apply default type "button"', () => {
+    fixture.detectChanges();
+
+    expect(buttonEl.type).toBe('button');
+  });
+
+  it('should apply the correct type when type input is set', () => {
+    fixture.componentRef.setInput('type', 'submit');
+
+    fixture.detectChanges();
+
+    expect(buttonEl.type).toBe('submit');
   });
 
   it('should set the button as disabled when disabled is true', () => {

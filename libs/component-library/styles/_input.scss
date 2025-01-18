@@ -27,3 +27,18 @@ input {
         color: lighten(colors.$black, 40%);
     }
 }
+
+.input-container {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.input-container.invalid input {
+    border: 1px solid colors.$danger;
+}
+
+.error-message {
+    color: colors.$danger;
+    font-size: 12px;
+    margin-top: 5px;
+}

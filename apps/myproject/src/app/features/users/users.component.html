@@ -1,1 +1,10 @@
-USERS
+<div class="d-flex">
+  <app-button (click)="addUser()">Add new user</app-button>
+</div>
+
+@if(store.data()) {
+<app-table
+  [data]="store.data()"
+  [configuration]="tableConfiguration"
+></app-table>
+}

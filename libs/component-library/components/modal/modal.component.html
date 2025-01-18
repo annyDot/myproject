@@ -1,0 +1,21 @@
+<div class="modal-overlay" (click)="close()"></div>
+<div
+  class="modal-content"
+  [style.width.px]="width()"
+  [style.height.px]="height()"
+>
+  <div class="modal-header">
+    <h3>{{ title() }}</h3>
+    <button class="close-button" (click)="close()">X</button>
+  </div>
+  <div class="modal-body">
+    <ng-content></ng-content>
+  </div>
+  <div class="modal-footer">
+    @for(button of buttons(); track button.type) {
+    <app-button (click)="onButtonClick(button.type, data)">{{
+      button.type
+    }}</app-button>
+    }
+  </div>
+</div>
