@@ -1,15 +1,18 @@
-export interface ModalOptions {
+export interface ModalConfig {
   title: string;
-  buttons: ModalButton[];
-  [key: string]: any;
+  width?: number;
+  height?: number;
+  buttons?: ModalButton[];
+  data?: any;
+  componentInputs?: { [key: string]: any };
+}
+
+export interface ModalButton {
+  type: 'save' | 'cancel' | 'ok';
+  label: string;
 }
 
 export interface ModalEvent {
   type: 'save' | 'cancel' | 'ok';
   data?: any;
-}
-
-export interface ModalButton {
-  type: 'save' | 'ok' | 'cancel';
-  label?: string;
 }

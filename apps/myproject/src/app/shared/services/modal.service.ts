@@ -1,66 +1,53 @@
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { DestroyRef, inject, Injectable, Injector } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ModalEvent, ModalOptions } from '@component-library/components';
-import { isObservable, Observable, Subject } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import {
+  ModalComponent,
+  ModalConfig,
+  ModalEvent,
+} from '@component-library/components';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ModalService {
-  private overlayRef: OverlayRef | null = null;
-  private eventSubject = new Subject<ModalEvent>();
-  events$ = this.eventSubject.asObservable();
-
+  private overlayRef!: OverlayRef;
   private overlay = inject(Overlay);
-  private injector = inject(Injector);
-  private destroyRef = inject(DestroyRef);
 
-  open(component: any, options: ModalOptions): Observable<ModalEvent> {
-    this.close();
+  open(component: any, config: ModalConfig): Observable<ModalEvent> {
+    const subject = new Subject<ModalEvent>();
 
     this.overlayRef = this.overlay.create({
       hasBackdrop: true,
-      backdropClass: 'modal-backdrop',
+      backdropClass: 'cdk-overlay-transparent-backdrop',
       panelClass: 'modal-panel',
-      scrollStrategy: this.overlay.scrollStrategies.block(),
     });
 
-    const componentPortal = new ComponentPortal(component, null, this.injector);
-    const componentRef = this.overlayRef.attach(componentPortal);
+    const portal = new ComponentPortal(ModalComponent);
+    const modalWrapperRef = this.overlayRef.attach(portal);
+    const instance = modalWrapperRef.instance;
 
-    const instance = componentRef.instance as any;
+    instance.component = component;
+    instance.config = config;
 
-    Object.keys(options).forEach((key) => {
-      if (key in instance) {
-        instance[key] = options[key];
+    instance.modalEvent.subscribe((event) => {
+      subject.next(event);
+      if (
+        event.type === 'cancel' ||
+        event.type === 'save' ||
+        event.type === 'ok'
+      ) {
+        this.close();
       }
     });
 
-    if (isObservable(instance.events)) {
-      instance.events
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe((event: ModalEvent) => {
-          this.eventSubject.next(event);
-          this.close();
-        });
-    }
-
-    this.overlayRef
-      .backdropClick()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(() => {
-        this.close();
-      });
-
-    return this.events$;
+    return subject.asObservable();
   }
 
-  close(): void {
+  close() {
     if (this.overlayRef) {
       this.overlayRef.dispose();
-      this.overlayRef = null;
     }
   }
 }

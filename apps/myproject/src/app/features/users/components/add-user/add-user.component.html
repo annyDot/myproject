@@ -1,53 +1,45 @@
-<app-modal [buttons]="buttons()" [title]="title()">
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <app-input
-      [formControl]="form.controls.name"
-      [labelTxt]="'Name'"
-      [placeholder]="'Name'"
-      [invalid]="form.controls.name.invalid && form.controls.name.touched"
-      [errorMessage]="
-        'Name is required and must be at least 2 characters long.'
-      "
-    ></app-input>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <app-input
+    [formControl]="form.controls.name"
+    [labelTxt]="'Name'"
+    [placeholder]="'Name'"
+    [invalid]="form.controls.name.invalid && form.controls.name.touched"
+    [errorMessage]="'Name is required and must be at least 2 characters long.'"
+  ></app-input>
 
-    <app-input
-      [formControl]="form.controls.surname"
-      [labelTxt]="'Surname'"
-      [placeholder]="'Surname'"
-      [invalid]="form.controls.surname.invalid && form.controls.surname.touched"
-      [errorMessage]="
-        'Surname is required and must be at least 2 characters long.'
-      "
-    ></app-input>
+  <app-input
+    [formControl]="form.controls.surname"
+    [labelTxt]="'Surname'"
+    [placeholder]="'Surname'"
+    [invalid]="form.controls.surname.invalid && form.controls.surname.touched"
+    [errorMessage]="
+      'Surname is required and must be at least 2 characters long.'
+    "
+  ></app-input>
 
-    <app-input
-      [formControl]="form.controls.username"
-      [labelTxt]="'Username'"
-      [placeholder]="'Username'"
-      [invalid]="
-        form.controls.username.invalid && form.controls.username.touched
-      "
-      [errorMessage]="
-        'Username is required and must be at least 3 characters long.'
-      "
-    ></app-input>
+  <app-input
+    [formControl]="form.controls.username"
+    [labelTxt]="'Username'"
+    [placeholder]="'Username'"
+    [invalid]="form.controls.username.invalid && form.controls.username.touched"
+    [errorMessage]="
+      'Username is required and must be at least 3 characters long.'
+    "
+  ></app-input>
 
-    <app-input
-      [formControl]="form.controls.email"
-      [labelTxt]="'Email'"
-      [placeholder]="'Email'"
-      [invalid]="form.controls.email.invalid && form.controls.email.touched"
-      [errorMessage]="'A valid email is required.'"
-    ></app-input>
+  <app-input
+    [formControl]="form.controls.email"
+    [labelTxt]="'Email'"
+    [placeholder]="'Email'"
+    [invalid]="form.controls.email.invalid && form.controls.email.touched"
+    [errorMessage]="'A valid email is required.'"
+  ></app-input>
 
-    <app-input
-      [formControl]="form.controls.country"
-      [labelTxt]="'Country'"
-      [placeholder]="'Country'"
-      [invalid]="form.controls.country.invalid && form.controls.country.touched"
-      [errorMessage]="'Country is required.'"
-    ></app-input>
-
-    <app-button [type]="'submit'" [disabled]="form.invalid">Add</app-button>
-  </form>
-</app-modal>
+  <app-input
+    [formControl]="form.controls.country"
+    [labelTxt]="'Country'"
+    [placeholder]="'Country'"
+    [invalid]="form.controls.country.invalid && form.controls.country.touched"
+    [errorMessage]="'Country is required.'"
+  ></app-input>
+</form>

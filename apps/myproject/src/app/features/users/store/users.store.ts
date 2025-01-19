@@ -9,7 +9,7 @@ import {
 } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 
-import { ModalEvent, TableColumnConfig } from '@component-library/components';
+import { TableColumnConfig } from '@component-library/components';
 import { exhaustMap, pipe, switchMap, tap } from 'rxjs';
 import { ModalService } from '../../../shared/services/modal.service';
 import { UserService } from '../../../shared/services/user.service';
@@ -63,24 +63,24 @@ export const UserStore = signalStore(
         pipe(
           tap(() => patchState(store, setPending())),
           switchMap(() =>
-            modalService
-              .open(AddUserComponent, {
-                title: 'Add New User',
-                buttons: [
-                  { type: 'save', label: 'Add User' },
-                  { type: 'cancel', label: 'Cancel' },
-                ],
-              })
-              .pipe(
-                tap((event: ModalEvent) => {
-                  if (event.type === 'save') {
-                    console.log('User data saved:', event.data);
-                  } else if (event.type === 'cancel') {
-                    console.log('Modal cancelled');
-                  }
-                })
-              )
-          )
+            modalService.open(AddUserComponent, {
+              title: 'Add New User',
+              buttons: [
+                { type: 'save', label: 'Add User' },
+                { type: 'cancel', label: 'Cancel' },
+              ],
+              componentInputs: {
+                exampleInput: 'Some example data',
+              },
+            })
+          ),
+          tap((event) => {
+            if (event.type === 'save') {
+              console.log('saved data', event.data);
+            } else if (event.type === 'cancel') {
+              console.log('cancelled');
+            }
+          })
         )
       ),
     })

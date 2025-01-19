@@ -1,21 +1,23 @@
-<div class="modal-overlay" (click)="close()"></div>
+<div class="modal-overlay" (click)="onClose()"></div>
 <div
+  [style.width.px]="config.width"
+  [style.height.px]="config.height"
   class="modal-content"
-  [style.width.px]="width()"
-  [style.height.px]="height()"
 >
   <div class="modal-header">
-    <h3>{{ title() }}</h3>
-    <button class="close-button" (click)="close()">X</button>
+    <h3>{{ config.title }}</h3>
+    <app-icon [icon]="'close'" [color]="'white'" (click)="onClose()" />
   </div>
   <div class="modal-body">
-    <ng-content></ng-content>
+    <ng-template #dynamicComponent></ng-template>
   </div>
-  <div class="modal-footer">
-    @for(button of buttons(); track button.type) {
-    <app-button (click)="onButtonClick({ type: button.type, data })">{{
-      getButtonLabel(button)
-    }}</app-button>
-    }
+  <div class="modal-footer" *ngIf="config?.buttons?.length">
+    <app-button
+      *ngFor="let button of config.buttons"
+      [class]="button.type === 'cancel' ? 'secondary' : 'primary'"
+      (click)="onBtnClick(button.type)"
+    >
+      {{ button.label }}
+    </app-button>
   </div>
 </div>

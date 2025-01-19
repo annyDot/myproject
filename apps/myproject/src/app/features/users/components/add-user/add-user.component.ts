@@ -4,6 +4,8 @@ import {
   Component,
   inject,
   input,
+  OnInit,
+  output,
 } from '@angular/core';
 import {
   FormBuilder,
@@ -14,8 +16,7 @@ import {
 import {
   ButtonComponent,
   InputComponent,
-  ModalButton,
-  ModalComponent,
+  ModalEvent,
 } from '@component-library/components';
 import { AddUserForm } from '../../models/add-user-form';
 
@@ -23,20 +24,18 @@ import { AddUserForm } from '../../models/add-user-form';
   selector: 'app-add-user',
   templateUrl: './add-user.component.html',
   styleUrl: './add-user.component.scss',
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    InputComponent,
-    ButtonComponent,
-    ModalComponent,
-  ],
+  imports: [CommonModule, ReactiveFormsModule, InputComponent, ButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AddUserComponent {
+export class AddUserComponent implements OnInit {
   form: FormGroup<AddUserForm>;
-  buttons = input<ModalButton[]>([]);
-  title = input<string>('');
   fb = inject(FormBuilder);
+  exampleInput = input('');
+  modalOutput = output<ModalEvent>();
+
+  ngOnInit(): void {
+    console.log(this.exampleInput);
+  }
 
   constructor() {
     this.form = this.fb.group({
@@ -60,9 +59,9 @@ export class AddUserComponent {
     });
   }
 
-  onSubmit(): void {
+  onSubmit() {
     if (this.form.valid) {
-      console.log('User Data:', this.form.value);
+      this.modalOutput.emit({ type: 'save', data: this.form.value });
     }
   }
 }
