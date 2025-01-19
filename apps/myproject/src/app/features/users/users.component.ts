@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ButtonComponent, TableComponent } from '@component-library/components';
-import { usersTableConfiguration } from './models/users-table-config';
 import { UserStore } from './store/users.store';
 
 @Component({
@@ -14,7 +13,6 @@ import { UserStore } from './store/users.store';
 })
 export class UsersComponent {
   store = inject(UserStore);
-  tableConfiguration = usersTableConfiguration;
 
   addUser(): void {
     this.store.addUser$();

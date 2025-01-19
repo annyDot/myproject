@@ -1,4 +1,4 @@
-<div class="modal-content">
+<app-modal [buttons]="buttons()" [title]="title()">
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <app-input
       [formControl]="form.controls.name"
@@ -50,4 +50,4 @@
 
     <app-button [type]="'submit'" [disabled]="form.invalid">Add</app-button>
   </form>
-</div>
+</app-modal>

@@ -1,23 +1,41 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ButtonComponent, InputComponent } from '@component-library/components';
-import { AddUserForm } from '../models/add-user-form';
+import {
+  ButtonComponent,
+  InputComponent,
+  ModalButton,
+  ModalComponent,
+} from '@component-library/components';
+import { AddUserForm } from '../../models/add-user-form';
 
 @Component({
   selector: 'app-add-user',
   templateUrl: './add-user.component.html',
   styleUrl: './add-user.component.scss',
-  imports: [CommonModule, ReactiveFormsModule, InputComponent, ButtonComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    InputComponent,
+    ButtonComponent,
+    ModalComponent,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddUserComponent {
   form: FormGroup<AddUserForm>;
+  buttons = input<ModalButton[]>([]);
+  title = input<string>('');
   fb = inject(FormBuilder);
 
   constructor() {

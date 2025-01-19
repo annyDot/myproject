@@ -13,8 +13,8 @@
   </div>
   <div class="modal-footer">
     @for(button of buttons(); track button.type) {
-    <app-button (click)="onButtonClick(button.type, data)">{{
-      button.type
+    <app-button (click)="onButtonClick({ type: button.type, data })">{{
+      getButtonLabel(button)
     }}</app-button>
     }
   </div>

@@ -2,22 +2,11 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  inject,
   input,
   output,
 } from '@angular/core';
-import { ModalService } from 'apps/myproject/src/app/shared/services/modal.service';
 import { ButtonComponent } from '../button/button.component';
-
-export interface ModalEvent {
-  eventType: 'save' | 'cancel' | 'ok';
-  data?: any;
-}
-
-export interface ModalButton {
-  type: 'save' | 'ok' | 'cancel';
-  label?: string;
-}
+import { ModalButton, ModalEvent } from './interface/modal.interface';
 
 @Component({
   selector: 'app-modal',
@@ -26,32 +15,16 @@ export interface ModalButton {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ModalComponent {
-  private modalService = inject(ModalService);
   data = input();
   title = input('');
   width = input(400);
   height = input(600);
   buttons = input<ModalButton[]>([]);
-  okEvent = output();
-  saveEvent = output();
-  cancelEvent = output();
+  events = output<ModalEvent>();
 
-  onButtonClick(eventType: 'save' | 'ok' | 'cancel', data: any): void {
-    const modalEvent: ModalEvent = { eventType, data };
-
-    switch (eventType) {
-      case 'save':
-        this.saveEvent.emit(data);
-        break;
-      case 'ok':
-        this.okEvent.emit(data);
-        break;
-      case 'cancel':
-        this.cancelEvent.emit();
-        break;
-    }
-
-    // this.modalService.emitModalEvent(modalEvent);
+  onButtonClick(event: ModalEvent): void {
+    const { type, data } = event;
+    this.events.emit({ type, data });
   }
 
   getButtonLabel(button: ModalButton): string {
@@ -68,6 +41,6 @@ export class ModalComponent {
   }
 
   close(): void {
-    this.cancelEvent.emit();
+    this.events.emit({ type: 'cancel' });
   }
 }

@@ -8,7 +8,9 @@ import {
   withState,
 } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { EMPTY, exhaustMap, pipe, tap } from 'rxjs';
+
+import { ModalEvent, TableColumnConfig } from '@component-library/components';
+import { exhaustMap, pipe, switchMap, tap } from 'rxjs';
 import { ModalService } from '../../../shared/services/modal.service';
 import { UserService } from '../../../shared/services/user.service';
 import {
@@ -17,15 +19,18 @@ import {
   setPending,
   withRequestStatus,
 } from '../../../shared/store-features/withRequestStatus.feature';
-import { AddUserComponent } from '../add-user/add-user.component';
+import { AddUserComponent } from '../components/add-user/add-user.component';
 import { User } from '../models/user.interface';
+import { usersTableConfiguration } from '../models/users-table-config';
 
 interface UserState {
   data: User[];
+  tableConfiguration: TableColumnConfig[];
 }
 
 const initialState: UserState = {
   data: [],
+  tableConfiguration: usersTableConfiguration,
 };
 
 export const UserStore = signalStore(
@@ -57,11 +62,25 @@ export const UserStore = signalStore(
       addUser$: rxMethod<void>(
         pipe(
           tap(() => patchState(store, setPending())),
-          exhaustMap(() => {
-            // todo
-            modalService.open(AddUserComponent);
-            return EMPTY;
-          })
+          switchMap(() =>
+            modalService
+              .open(AddUserComponent, {
+                title: 'Add New User',
+                buttons: [
+                  { type: 'save', label: 'Add User' },
+                  { type: 'cancel', label: 'Cancel' },
+                ],
+              })
+              .pipe(
+                tap((event: ModalEvent) => {
+                  if (event.type === 'save') {
+                    console.log('User data saved:', event.data);
+                  } else if (event.type === 'cancel') {
+                    console.log('Modal cancelled');
+                  }
+                })
+              )
+          )
         )
       ),
     })
