@@ -1,7 +1,7 @@
 <div class="modal-overlay" (click)="onClose()"></div>
 <div
-  [style.width.px]="config.width"
-  [style.height.px]="config.height"
+  [style.width.px]="config.width ?? defaultWidth"
+  [style.height.px]="config.height ?? defaultHeight"
   class="modal-content"
 >
   <div class="modal-header">
@@ -10,14 +10,5 @@
   </div>
   <div class="modal-body">
     <ng-template #dynamicComponent></ng-template>
-  </div>
-  <div class="modal-footer" *ngIf="config?.buttons?.length">
-    <app-button
-      *ngFor="let button of config.buttons"
-      [class]="button.type === 'cancel' ? 'secondary' : 'primary'"
-      (click)="onBtnClick(button.type)"
-    >
-      {{ button.label }}
-    </app-button>
   </div>
 </div>

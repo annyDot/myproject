@@ -1,4 +1,4 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
+<form [formGroup]="form">
   <app-input
     [formControl]="form.controls.name"
     [labelTxt]="'Name'"
@@ -43,3 +43,14 @@
     [errorMessage]="'Country is required.'"
   ></app-input>
 </form>
+
+<div class="modal-footer" *ngIf="buttons?.length">
+  <app-button
+    *ngFor="let button of buttons"
+    [class]="button.type === 'cancel' ? 'secondary' : 'primary'"
+    [disabled]="button.type === 'save' && form.invalid"
+    (click)="onBtnClick(button.type)"
+  >
+    {{ button.label }}
+  </app-button>
+</div>

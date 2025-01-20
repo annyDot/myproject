@@ -1,3 +1,10 @@
+import { EventEmitter, OutputEmitterRef } from '@angular/core';
+
+export interface Modal {
+  buttons: ModalButton[];
+  modalOutput: EventEmitter<ModalEvent> | OutputEmitterRef<any>;
+}
+
 export interface ModalConfig {
   title: string;
   width?: number;

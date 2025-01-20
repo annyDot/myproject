@@ -3,8 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
-  input,
-  OnInit,
+  Input,
   output,
 } from '@angular/core';
 import {
@@ -16,6 +15,8 @@ import {
 import {
   ButtonComponent,
   InputComponent,
+  Modal,
+  ModalButton,
   ModalEvent,
 } from '@component-library/components';
 import { AddUserForm } from '../../models/add-user-form';
@@ -27,15 +28,12 @@ import { AddUserForm } from '../../models/add-user-form';
   imports: [CommonModule, ReactiveFormsModule, InputComponent, ButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AddUserComponent implements OnInit {
+export class AddUserComponent implements Modal {
+  @Input() buttons: ModalButton[] = [];
+  modalOutput = output<ModalEvent['data']>();
+
   form: FormGroup<AddUserForm>;
   fb = inject(FormBuilder);
-  exampleInput = input('');
-  modalOutput = output<ModalEvent>();
-
-  ngOnInit(): void {
-    console.log(this.exampleInput);
-  }
 
   constructor() {
     this.form = this.fb.group({
@@ -59,9 +57,11 @@ export class AddUserComponent implements OnInit {
     });
   }
 
-  onSubmit() {
-    if (this.form.valid) {
-      this.modalOutput.emit({ type: 'save', data: this.form.value });
+  onBtnClick(type: ModalEvent['type']) {
+    if (this.form.valid && type === 'save') {
+      this.modalOutput.emit({ type, data: this.form.value });
+    } else {
+      this.modalOutput.emit({ type });
     }
   }
 }

@@ -37,11 +37,13 @@
 }
 
 .modal-footer {
-    @include mixins.flex-justify-center;
+    @include mixins.flex-align-center;
     gap: 1rem;
+    position: absolute;
+    bottom: 0;
+    right: 0;
     padding: 16px;
-    border-top: 1px solid colors.$snow;
-    text-align: right;
+    background-color: colors.$white;
 }
 
 .close-button {
