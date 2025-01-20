@@ -1,13 +1,25 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  Input,
+  output,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ButtonComponent, InputComponent } from '@component-library/components';
-import { AddUserForm } from '../models/add-user-form';
+import {
+  ButtonComponent,
+  InputComponent,
+  Modal,
+  ModalButton,
+  ModalEvent,
+} from '@component-library/components';
+import { AddUserForm } from '../../models/add-user-form';
 
 @Component({
   selector: 'app-add-user',
@@ -16,7 +28,10 @@ import { AddUserForm } from '../models/add-user-form';
   imports: [CommonModule, ReactiveFormsModule, InputComponent, ButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AddUserComponent {
+export class AddUserComponent implements Modal {
+  @Input() buttons: ModalButton[] = [];
+  modalOutput = output<ModalEvent['data']>();
+
   form: FormGroup<AddUserForm>;
   fb = inject(FormBuilder);
 
@@ -42,9 +57,11 @@ export class AddUserComponent {
     });
   }
 
-  onSubmit(): void {
-    if (this.form.valid) {
-      console.log('User Data:', this.form.value);
+  onBtnClick(type: ModalEvent['type']) {
+    if (this.form.valid && type === 'save') {
+      this.modalOutput.emit({ type, data: this.form.value });
+    } else {
+      this.modalOutput.emit({ type });
     }
   }
 }

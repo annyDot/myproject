@@ -5,6 +5,6 @@
 @if(store.data()) {
 <app-table
   [data]="store.data()"
-  [configuration]="tableConfiguration"
+  [configuration]="store.tableConfiguration()"
 ></app-table>
 }
