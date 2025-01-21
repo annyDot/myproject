@@ -17,7 +17,8 @@
         "index": "apps/myproject/src/index.html",
         "browser": "apps/myproject/src/main.ts",
         "polyfills": [
-          "zone.js"
+          "zone.js",
+          "apps/myproject/src/polyfills.ts"
         ],
         "tsConfig": "apps/myproject/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
@@ -49,7 +50,13 @@
               "maximumError": "8kB"
             }
           ],
-          "outputHashing": "all"
+          "outputHashing": "all",
+          "fileReplacements": [
+            {
+              "replace": "apps/myproject/src/environments/environment.ts",
+              "with": "apps/myproject/src/environments/environment.prod.ts"
+            }
+          ]
         },
         "development": {
           "optimization": false,
