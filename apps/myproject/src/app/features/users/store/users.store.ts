@@ -10,7 +10,7 @@ import {
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 
 import { TableColumnConfig } from '@component-library/components';
-import { exhaustMap, pipe, switchMap, tap } from 'rxjs';
+import { EMPTY, exhaustMap, pipe, switchMap, tap } from 'rxjs';
 import { ModalService } from '../../../shared/services/modal.service';
 import { UserService } from '../../../shared/services/user.service';
 import {
@@ -69,17 +69,14 @@ export const UserStore = signalStore(
                 { type: 'save', label: 'Add User' },
                 { type: 'cancel', label: 'Cancel' },
               ],
-              componentInputs: {
-                exampleInput: 'Some example data',
-              },
+              componentInputs: {},
             })
           ),
           tap((event) => {
-            if (event.type === 'save') {
-              console.log('saved data', event.data);
-            } else if (event.type === 'cancel') {
-              console.log('cancelled');
+            if (event && event.type === 'save') {
+              return userService.addUser({ ...event.data, status: 'active' });
             }
+            return EMPTY;
           })
         )
       ),

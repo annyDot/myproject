@@ -9,6 +9,7 @@ import {
 import {
   FormBuilder,
   FormGroup,
+  FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
@@ -25,7 +26,13 @@ import { AddUserForm } from '../../models/add-user-form';
   selector: 'app-add-user',
   templateUrl: './add-user.component.html',
   styleUrl: './add-user.component.scss',
-  imports: [CommonModule, ReactiveFormsModule, InputComponent, ButtonComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    InputComponent,
+    ButtonComponent,
+    FormsModule,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddUserComponent implements Modal {

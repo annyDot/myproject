@@ -14,6 +14,7 @@
 
 // components
 export * from './button/button.component';
+export * from './checkbox/checkbox.component';
 export * from './dropdown/dropdown.component';
 export * from './icon/icon.component';
 export * from './input/input.component';

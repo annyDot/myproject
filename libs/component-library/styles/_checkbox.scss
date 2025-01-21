@@ -1,0 +1,34 @@
+@use "colors";
+@use "mixins";
+
+
+.custom-checkbox {
+    @include mixins.flex-align-center;
+    cursor: pointer;
+
+    input[type='checkbox'] {
+        display: none;
+    }
+
+    .checkmark {
+        width: 24px;
+        height: 24px;
+        border: 2px solid colors.$gray-light-alt;
+        border-radius: 4px;
+        margin-right: 8px;
+        position: relative;
+        background-color: colors.$white;
+    }
+
+    input[type='checkbox']:checked+.checkmark::after {
+        content: '';
+        position: absolute;
+        left: 6px;
+        top: 3px;
+        width: 10px;
+        height: 14px;
+        border: solid colors.$black;
+        border-width: 0 3px 3px 0;
+        transform: rotate(45deg);
+    }
+}
