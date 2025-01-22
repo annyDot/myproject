@@ -20,7 +20,7 @@ import {
   ModalButton,
   ModalEvent,
 } from '@component-library/components';
-import { AddUserForm } from '../../models/add-user-form';
+import { UserForm } from '../../models/user-form';
 
 @Component({
   selector: 'app-add-user',
@@ -39,7 +39,7 @@ export class AddUserComponent implements Modal {
   @Input() buttons: ModalButton[] = [];
   modalOutput = output<ModalEvent['data']>();
 
-  form: FormGroup<AddUserForm>;
+  form: FormGroup<UserForm>;
   fb = inject(FormBuilder);
 
   constructor() {

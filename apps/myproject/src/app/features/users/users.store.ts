@@ -11,17 +11,18 @@ import { rxMethod } from '@ngrx/signals/rxjs-interop';
 
 import { TableConfiguration } from '@component-library/components';
 import { EMPTY, exhaustMap, pipe, switchMap, tap } from 'rxjs';
-import { ModalService } from '../../../shared/services/modal.service';
+import { ModalService } from '../../shared/services/modal.service';
 import {
   setError,
   setFulfilled,
   setPending,
   withRequestStatus,
-} from '../../../shared/store-features/withRequestStatus.feature';
-import { AddUserComponent } from '../components/add-user/add-user.component';
-import { User } from '../models/user.interface';
-import { usersTableConfiguration } from '../models/users-table-config';
-import { UserService } from '../user.service';
+} from '../../shared/store-features/withRequestStatus.feature';
+import { AddUserComponent } from './components/add-user/add-user.component';
+import { EditUserComponent } from './components/edit-user/edit-user.component';
+import { User } from './models/user.interface';
+import { usersTableConfiguration } from './models/users-table-config';
+import { UserService } from './user.service';
 
 interface UserState {
   data: User[];
@@ -61,7 +62,6 @@ export const UserStore = signalStore(
       ),
       addUser$: rxMethod<void>(
         pipe(
-          tap(() => patchState(store, setPending())),
           switchMap(() =>
             modalService.open(AddUserComponent, {
               title: 'Add New User',
@@ -94,6 +94,64 @@ export const UserStore = signalStore(
             patchState(store, setFulfilled());
             return EMPTY;
           })
+        )
+      ),
+      // todo
+      editUser$: rxMethod<User>(
+        pipe(
+          switchMap((user) =>
+            modalService.open(EditUserComponent, {
+              title: 'Edit User',
+              buttons: [
+                { type: 'save', label: 'Save Changes' },
+                { type: 'cancel', label: 'Cancel' },
+              ],
+              componentInputs: {
+                isEditMode: true,
+                user,
+              },
+            })
+          ),
+          switchMap((event) => {
+            if (event && event.type === 'save') {
+              return userService.updateUser(event.data).pipe(
+                tapResponse({
+                  next: (updatedUser) => {
+                    patchState(
+                      store,
+                      {
+                        data: store
+                          .data()
+                          .map((user) =>
+                            user.id === updatedUser.id ? updatedUser : user
+                          ),
+                      },
+                      setFulfilled()
+                    );
+                  },
+                  error: (error: { message: string }) => {
+                    patchState(store, setError(error.message));
+                  },
+                })
+              );
+            }
+            patchState(store, setFulfilled());
+            return EMPTY;
+          })
+        )
+      ),
+      viewUser$: rxMethod<User>(
+        pipe(
+          switchMap((user) =>
+            modalService.open(EditUserComponent, {
+              title: 'View User',
+              buttons: [{ type: 'ok', label: 'OK' }],
+              componentInputs: {
+                isEditMode: false,
+                user,
+              },
+            })
+          )
         )
       ),
     })

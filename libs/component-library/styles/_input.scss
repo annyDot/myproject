@@ -21,6 +21,7 @@ input {
         background-color: colors.$disabled;
         border: 1px solid lighten(colors.$black, 60%);
         cursor: not-allowed;
+        color: colors.$pure-black;
     }
 
     &::placeholder {

@@ -16,6 +16,10 @@
     -webkit-font-feature-settings: 'liga';
     -webkit-font-smoothing: antialiased;
     cursor: pointer;
+
+    &:hover:not(:disabled) {
+        filter: brightness(1.5);
+    }
 }
 
 .icon-primary {

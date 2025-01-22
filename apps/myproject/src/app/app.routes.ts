@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './features/home/home.component';
 import { LoginComponent } from './features/login/login.component';
-import { UsersComponent } from './features/users/users.component';
+import { UsersComponent } from './features/users/components/users-overview/users.component';
 import { canActivateAuthRole } from './shared/guards/auth-role.guard';
 
 export const routes: Routes = [

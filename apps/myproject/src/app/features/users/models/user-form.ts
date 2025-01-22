@@ -1,6 +1,6 @@
 import { FormControl } from '@angular/forms';
 
-export interface AddUserForm {
+export interface UserForm {
   name: FormControl<string | null>;
   surname: FormControl<string | null>;
   username: FormControl<string | null>;
