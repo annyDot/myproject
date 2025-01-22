@@ -6,5 +6,6 @@
 <app-table
   [data]="store.data()"
   [configuration]="store.tableConfiguration()"
+  (actionClicked)="onTableAction($event)"
 ></app-table>
 }
