@@ -1,6 +1,7 @@
 <form [formGroup]="form">
   <app-input
     [formControl]="form.controls.name"
+    [id]="'name'"
     [labelTxt]="'Name'"
     [placeholder]="'Name'"
     [invalid]="form.controls.name.invalid && form.controls.name.touched"
@@ -9,6 +10,7 @@
 
   <app-input
     [formControl]="form.controls.surname"
+    [id]="'surname'"
     [labelTxt]="'Surname'"
     [placeholder]="'Surname'"
     [invalid]="form.controls.surname.invalid && form.controls.surname.touched"
@@ -19,6 +21,7 @@
 
   <app-input
     [formControl]="form.controls.username"
+    [id]="'username'"
     [labelTxt]="'Username'"
     [placeholder]="'Username'"
     [invalid]="form.controls.username.invalid && form.controls.username.touched"
@@ -29,6 +32,7 @@
 
   <app-input
     [formControl]="form.controls.email"
+    [id]="'email'"
     [labelTxt]="'Email'"
     [placeholder]="'Email'"
     [invalid]="form.controls.email.invalid && form.controls.email.touched"
@@ -37,11 +41,18 @@
 
   <app-input
     [formControl]="form.controls.country"
+    [id]="'country'"
     [labelTxt]="'Country'"
     [placeholder]="'Country'"
     [invalid]="form.controls.country.invalid && form.controls.country.touched"
     [errorMessage]="'Country is required.'"
   ></app-input>
+
+  <app-checkbox
+    [id]="'status'"
+    [formControl]="form.controls.status"
+    [labelTxt]="'Status'"
+  ></app-checkbox>
 </form>
 
 <div class="modal-footer" *ngIf="buttons?.length">

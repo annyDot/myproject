@@ -18,8 +18,7 @@ import {
   setPending,
   withRequestStatus,
 } from '../../shared/store-features/withRequestStatus.feature';
-import { AddUserComponent } from './components/add-user/add-user.component';
-import { EditUserComponent } from './components/edit-user/edit-user.component';
+import { UserFormComponent } from './components/user-form/user-form.component';
 import { User } from './models/user.interface';
 import { usersTableConfiguration } from './models/users-table-config';
 import { UserService } from './user.service';
@@ -63,51 +62,50 @@ export const UserStore = signalStore(
       addUser$: rxMethod<void>(
         pipe(
           switchMap(() =>
-            modalService.open(AddUserComponent, {
+            modalService.open(UserFormComponent, {
               title: 'Add New User',
               buttons: [
                 { type: 'save', label: 'Add User' },
                 { type: 'cancel', label: 'Cancel' },
               ],
-              componentInputs: {},
+              componentInputs: {
+                mode: 'add',
+              },
             })
           ),
           switchMap((event) => {
             if (event && event.type === 'save') {
-              return userService
-                .addUser({ ...event.data, status: 'active' })
-                .pipe(
-                  tapResponse({
-                    next: (newUser) => {
-                      patchState(
-                        store,
-                        { data: [...(store.data() ?? []), newUser] },
-                        setFulfilled()
-                      );
-                    },
-                    error: (error: { message: string }) => {
-                      patchState(store, setError(error.message));
-                    },
-                  })
-                );
+              return userService.addUser(event.data).pipe(
+                tapResponse({
+                  next: (newUser) => {
+                    patchState(
+                      store,
+                      { data: [...(store.data() ?? []), newUser] },
+                      setFulfilled()
+                    );
+                  },
+                  error: (error: { message: string }) => {
+                    patchState(store, setError(error.message));
+                  },
+                })
+              );
             }
             patchState(store, setFulfilled());
             return EMPTY;
           })
         )
       ),
-      // todo
       editUser$: rxMethod<User>(
         pipe(
           switchMap((user) =>
-            modalService.open(EditUserComponent, {
+            modalService.open(UserFormComponent, {
               title: 'Edit User',
               buttons: [
                 { type: 'save', label: 'Save Changes' },
                 { type: 'cancel', label: 'Cancel' },
               ],
               componentInputs: {
-                isEditMode: true,
+                mode: 'edit',
                 user,
               },
             })
@@ -143,11 +141,11 @@ export const UserStore = signalStore(
       viewUser$: rxMethod<User>(
         pipe(
           switchMap((user) =>
-            modalService.open(EditUserComponent, {
+            modalService.open(UserFormComponent, {
               title: 'View User',
               buttons: [{ type: 'ok', label: 'OK' }],
               componentInputs: {
-                isEditMode: false,
+                mode: 'view',
                 user,
               },
             })

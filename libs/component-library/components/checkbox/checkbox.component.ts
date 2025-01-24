@@ -1,6 +1,12 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, forwardRef } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  forwardRef,
+  input,
+  model,
+} from '@angular/core';
 import {
   ControlValueAccessor,
   FormsModule,
@@ -21,6 +27,10 @@ import {
   ],
 })
 export class CheckboxComponent implements ControlValueAccessor {
+  id = input('');
+  labelTxt = input('');
+
+  disabled = model(false);
   private _checked = false;
 
   onChange: (value: boolean) => void = () => {};
@@ -31,13 +41,16 @@ export class CheckboxComponent implements ControlValueAccessor {
   }
 
   set checked(value: boolean) {
-    this._checked = value;
-    this.onChange(value);
+    if (!this.disabled) {
+      this._checked = value;
+      this.onChange(value);
+    }
   }
 
   writeValue(value: any): void {
     this._checked = value;
   }
+
   registerOnChange(fn: any): void {
     this.onChange = fn;
   }
@@ -46,8 +59,14 @@ export class CheckboxComponent implements ControlValueAccessor {
     this.onTouched = fn;
   }
 
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled.set(isDisabled);
+  }
+
   toggleChecked(): void {
-    this.checked = !this.checked;
-    this.onTouched();
+    if (!this.disabled) {
+      this.checked = !this.checked;
+      this.onTouched();
+    }
   }
 }

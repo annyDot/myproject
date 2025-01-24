@@ -4,6 +4,7 @@ import {
   Component,
   inject,
   Input,
+  OnInit,
   output,
 } from '@angular/core';
 import {
@@ -15,35 +16,41 @@ import {
 } from '@angular/forms';
 import {
   ButtonComponent,
+  CheckboxComponent,
   InputComponent,
   Modal,
   ModalButton,
   ModalEvent,
 } from '@component-library/components';
-import { UserForm } from '../../models/user-form';
+import { UserForm, UserFormMode } from '../../models/user-form';
+import { User } from '../../models/user.interface';
 
 @Component({
-  selector: 'app-add-user',
-  templateUrl: './add-user.component.html',
-  styleUrl: './add-user.component.scss',
+  selector: 'app-user-form',
+  templateUrl: './user-form.component.html',
   imports: [
     CommonModule,
     ReactiveFormsModule,
     InputComponent,
     ButtonComponent,
     FormsModule,
+    CheckboxComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AddUserComponent implements Modal {
+export class UserFormComponent implements Modal, OnInit {
   @Input() buttons: ModalButton[] = [];
+  @Input() mode: UserFormMode = UserFormMode.VIEW;
+  @Input() user!: User;
   modalOutput = output<ModalEvent['data']>();
 
+  private fb = inject(FormBuilder);
   form: FormGroup<UserForm>;
-  fb = inject(FormBuilder);
 
   constructor() {
     this.form = this.fb.group({
+      id: this.fb.control<string | null>({ value: null, disabled: true }),
+      status: this.fb.control<string | null>(null),
       name: this.fb.control<string | null>(null, [
         Validators.required,
         Validators.minLength(2),
@@ -64,9 +71,30 @@ export class AddUserComponent implements Modal {
     });
   }
 
+  ngOnInit(): void {
+    if (this.mode === UserFormMode.VIEW) {
+      this.form.patchValue(this.user);
+      this.form.disable();
+    }
+    if (this.mode === UserFormMode.EDIT && this.user) {
+      this.form.patchValue(this.user);
+    } else {
+      // strictly typed forms don't allow for removing
+      (this.form as FormGroup).removeControl('id');
+    }
+
+    this.form.valueChanges.subscribe((v) => console.log(v));
+  }
+
   onBtnClick(type: ModalEvent['type']) {
     if (this.form.valid && type === 'save') {
-      this.modalOutput.emit({ type, data: this.form.value });
+      this.modalOutput.emit({
+        type,
+        data:
+          this.mode === UserFormMode.EDIT
+            ? this.form.getRawValue()
+            : this.form.value,
+      });
     } else {
       this.modalOutput.emit({ type });
     }

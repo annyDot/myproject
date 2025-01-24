@@ -52,18 +52,4 @@ export class UserService {
       }))
     );
   }
-
-  deactivateUser(userId: string): Observable<void> {
-    const url = `${this.#baseUrl}/${userId}.json`;
-    const data = { status: 'inactive' };
-
-    return this.#http.patch<void>(url, data);
-  }
-
-  activateUser(userId: string): Observable<void> {
-    const url = `${this.#baseUrl}/${userId}.json`;
-    const data = { status: 'active' };
-
-    return this.#http.patch<void>(url, data);
-  }
 }

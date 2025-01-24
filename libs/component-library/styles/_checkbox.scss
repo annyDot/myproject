@@ -1,34 +1,53 @@
 @use "colors";
 @use "mixins";
 
-
-.custom-checkbox {
+.checkbox-component {
     @include mixins.flex-align-center;
-    cursor: pointer;
 
-    input[type='checkbox'] {
-        display: none;
-    }
+    .custom-checkbox {
+        @include mixins.flex-align-center;
+        cursor: pointer;
 
-    .checkmark {
-        width: 24px;
-        height: 24px;
-        border: 2px solid colors.$gray-light-alt;
-        border-radius: 4px;
-        margin-right: 8px;
-        position: relative;
-        background-color: colors.$white;
-    }
+        input[type='checkbox'] {
+            display: none;
+        }
 
-    input[type='checkbox']:checked+.checkmark::after {
-        content: '';
-        position: absolute;
-        left: 6px;
-        top: 3px;
-        width: 10px;
-        height: 14px;
-        border: solid colors.$black;
-        border-width: 0 3px 3px 0;
-        transform: rotate(45deg);
+        .checkmark {
+            width: 24px;
+            height: 24px;
+            border: 2px solid colors.$primary;
+            border-radius: 4px;
+            margin-right: 8px;
+            position: relative;
+            background-color: colors.$white;
+
+            &.disabled {
+                background-color: colors.$gray-light;
+                border-color: colors.$gray;
+                cursor: not-allowed;
+            }
+        }
+
+        input[type='checkbox']:checked+.checkmark::after {
+            content: '';
+            position: absolute;
+            left: 5.5px;
+            top: 1px;
+            width: 10px;
+            height: 14px;
+            border: solid colors.$primary;
+            border-width: 0 3px 3px 0;
+            transform: rotate(45deg);
+        }
+
+        input[type='checkbox']:disabled+.checkmark {
+            background-color: colors.$gray-light;
+            border-color: colors.$gray;
+            cursor: not-allowed;
+        }
+
+        input[type='checkbox']:disabled:checked+.checkmark::after {
+            border-color: colors.$gray;
+        }
     }
 }
