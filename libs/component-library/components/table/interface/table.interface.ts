@@ -6,7 +6,11 @@ export interface TableConfiguration {
 export interface TableColumnConfig {
   id: number;
   name: string;
-  showProperty: string;
+  displayValue: string;
+  useBooleanIcons?: {
+    trueValue: string | boolean;
+    falseValue: string | boolean;
+  };
   icon?: string;
   actions?: TableColumnAction[];
 }

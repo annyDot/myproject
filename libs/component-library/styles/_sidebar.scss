@@ -36,5 +36,6 @@
     &.active {
         background-color: colors.$primary-light;
         font-weight: bold;
+        color: colors.$primary;
     }
 }

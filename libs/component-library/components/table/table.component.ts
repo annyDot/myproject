@@ -8,6 +8,7 @@ import {
 import { IconComponent } from '../icon/icon.component';
 import {
   TableColumnAction,
+  TableColumnConfig,
   TableConfiguration,
   TableData,
 } from './interface/table.interface';
@@ -34,9 +35,23 @@ export class TableComponent {
   onActionClick(action: TableColumnAction, row: TableData): void {
     this.actionClicked.emit({ action, selectedRow: row });
   }
+
   getColumnKeys(): string[] {
     return this.configuration()?.columns
       ? Object.keys(this.configuration().columns)
       : [];
+  }
+
+  getBooleanIcon(column: TableColumnConfig, value: string | boolean): string {
+    if (!column.useBooleanIcons) return '';
+
+    if (value === column.useBooleanIcons.trueValue || value === true) {
+      return 'check';
+    }
+    if (value === column.useBooleanIcons.falseValue || value === false) {
+      return 'close';
+    }
+
+    return '';
   }
 }

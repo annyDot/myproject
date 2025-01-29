@@ -26,7 +26,21 @@
     >
       @for (key of getColumnKeys(); track key) {
       <td>
-        {{ item[configuration().columns[key].showProperty] }}
+        @if (configuration().columns[key].useBooleanIcons) {
+        <app-icon
+          #appIcon
+          [color]="appIcon.icon() === 'check' ? 'green' : 'red'"
+          [icon]="
+            getBooleanIcon(
+              configuration().columns[key],
+              item[configuration().columns[key].displayValue]
+            )
+          "
+          [tooltip]="item[configuration().columns[key].displayValue]"
+        />
+        } @else {
+        {{ item[configuration().columns[key].displayValue] }}
+        }
       </td>
       }
       <td class="table-actions">
@@ -35,6 +49,7 @@
           [icon]="action.icon"
           (click)="onActionClick(action, item)"
           [color]="selectedRow === item ? 'white' : ''"
+          [tooltip]="action.name"
         />
         }
       </td>

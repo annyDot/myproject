@@ -50,7 +50,7 @@ export class UserFormComponent implements Modal, OnInit {
   constructor() {
     this.form = this.fb.group({
       id: this.fb.control<string | null>({ value: null, disabled: true }),
-      status: this.fb.control<string | null>(null),
+      status: this.fb.control<string>('inactive'),
       name: this.fb.control<string | null>(null, [
         Validators.required,
         Validators.minLength(2),
@@ -82,8 +82,6 @@ export class UserFormComponent implements Modal, OnInit {
       // strictly typed forms don't allow for removing
       (this.form as FormGroup).removeControl('id');
     }
-
-    this.form.valueChanges.subscribe((v) => console.log(v));
   }
 
   onBtnClick(type: ModalEvent['type']) {

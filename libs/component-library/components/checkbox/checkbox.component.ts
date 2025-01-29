@@ -5,7 +5,6 @@ import {
   Component,
   forwardRef,
   input,
-  model,
 } from '@angular/core';
 import {
   ControlValueAccessor,
@@ -28,45 +27,46 @@ import {
 })
 export class CheckboxComponent implements ControlValueAccessor {
   id = input('');
+  trueValue = input<string | boolean>(true);
+  falseValue = input<string | boolean>(false);
   labelTxt = input('');
 
-  disabled = model(false);
-  private _checked = false;
+  private _value: string | boolean = false;
+  isDisabled = false;
 
-  onChange: (value: boolean) => void = () => {};
-  onTouched: () => void = () => {};
+  onChange = (value: string | boolean) => {};
+  onTouched = () => {};
 
-  get checked(): boolean {
-    return this._checked;
+  get value(): string | boolean {
+    return this._value;
   }
 
-  set checked(value: boolean) {
-    if (!this.disabled) {
-      this._checked = value;
-      this.onChange(value);
+  set value(val: string | boolean) {
+    if (val !== this._value) {
+      this._value = val;
+      this.onChange(val);
+      this.onTouched();
     }
   }
 
-  writeValue(value: any): void {
-    this._checked = value;
+  writeValue(value: string | boolean): void {
+    this._value = value;
   }
 
-  registerOnChange(fn: any): void {
+  registerOnChange(fn: () => void): void {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: any): void {
+  registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
 
-  setDisabledState(isDisabled: boolean): void {
-    this.disabled.set(isDisabled);
+  setDisabledState?(isDisabled: boolean): void {
+    this.isDisabled = isDisabled;
   }
 
-  toggleChecked(): void {
-    if (!this.disabled) {
-      this.checked = !this.checked;
-      this.onTouched();
-    }
+  toggle(): void {
+    this.value =
+      this._value === this.trueValue() ? this.falseValue() : this.trueValue();
   }
 }
