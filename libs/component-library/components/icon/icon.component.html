@@ -3,6 +3,8 @@
   class="material-icons"
   [ngClass]="class()"
   [ngStyle]="{ fontSize: size(), color: color() }"
+  [matTooltip]="tooltip()"
+  matTooltipClass="custom-tooltip"
 >
   {{ icon() }}
 </span>

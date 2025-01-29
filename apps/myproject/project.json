@@ -93,6 +93,10 @@
         ],
         "scripts": []
       }
+    },
+    "fileReplacements": {
+      "replace": "apps/myproject/src/environments/environment.ts",
+      "with": "apps/myproject/src/environments/environment.prod.ts"
     }
   }
 }

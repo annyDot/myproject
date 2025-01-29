@@ -1,53 +1,47 @@
 @use "colors";
 @use "mixins";
 
-.checkbox-component {
+.checkbox-label {
     @include mixins.flex-align-center;
+    cursor: pointer;
+    gap: 8px;
+    user-select: none;
+}
 
-    .custom-checkbox {
-        @include mixins.flex-align-center;
-        cursor: pointer;
+input[type='checkbox'] {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 2px solid colors.$primary;
+    border-radius: 4px;
+    @include mixins.flex-justify-center;
+    cursor: pointer;
 
-        input[type='checkbox'] {
-            display: none;
-        }
+    &:checked {
+        background: colors.$primary;
+        border-color: colors.$primary;
+        position: relative;
+    }
 
-        .checkmark {
-            width: 24px;
-            height: 24px;
-            border: 2px solid colors.$primary;
-            border-radius: 4px;
-            margin-right: 8px;
-            position: relative;
-            background-color: colors.$white;
+    &:checked::after {
+        content: '✔';
+        color: colors.$white;
+        font-size: 12px;
+        font-weight: bold;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
 
-            &.disabled {
-                background-color: colors.$gray-light;
-                border-color: colors.$gray;
-                cursor: not-allowed;
-            }
-        }
+    &:focus {
+        outline: 2px solid colors.$primary;
+    }
 
-        input[type='checkbox']:checked+.checkmark::after {
-            content: '';
-            position: absolute;
-            left: 5.5px;
-            top: 1px;
-            width: 10px;
-            height: 14px;
-            border: solid colors.$primary;
-            border-width: 0 3px 3px 0;
-            transform: rotate(45deg);
-        }
 
-        input[type='checkbox']:disabled+.checkmark {
-            background-color: colors.$gray-light;
-            border-color: colors.$gray;
-            cursor: not-allowed;
-        }
-
-        input[type='checkbox']:disabled:checked+.checkmark::after {
-            border-color: colors.$gray;
-        }
+    &:disabled {
+        cursor: not-allowed;
+        background: colors.$gray;
+        border-color: colors.$gray;
     }
 }

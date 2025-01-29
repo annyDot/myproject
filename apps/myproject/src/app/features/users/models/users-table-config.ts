@@ -7,32 +7,36 @@ export const usersTableConfiguration = {
     name: {
       id: 1,
       name: 'Name',
-      showProperty: 'name',
+      displayValue: 'name',
     },
     surname: {
       id: 2,
       name: 'Surname',
-      showProperty: 'surname',
+      displayValue: 'surname',
     },
     username: {
       id: 3,
       name: 'Username',
-      showProperty: 'username',
+      displayValue: 'username',
     },
     status: {
       id: 4,
       name: 'Status',
-      showProperty: 'status',
+      displayValue: 'status',
+      useBooleanIcons: {
+        trueValue: 'active',
+        falseValue: 'inactive',
+      },
     },
     country: {
       id: 5,
       name: 'Country',
-      showProperty: 'country',
+      displayValue: 'country',
     },
     email: {
       id: 6,
       name: 'Email',
-      showProperty: 'email',
+      displayValue: 'email',
     },
   },
 };

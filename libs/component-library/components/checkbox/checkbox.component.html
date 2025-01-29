@@ -1,13 +1,11 @@
-<span class="checkbox-component">
-  <label class="custom-checkbox">
-    <input
-      type="checkbox"
-      [checked]="checked"
-      (change)="toggleChecked()"
-      (blur)="onTouched()"
-      [disabled]="disabled()"
-    />
-    <span class="checkmark"></span>
-  </label>
-  <label [for]="id()">{{ labelTxt() }}</label>
-</span>
+<label [for]="id()" data-testid="checkbox-label" class="checkbox-label">
+  <input
+    data-testid="checkbox"
+    type="checkbox"
+    [id]="id()"
+    [checked]="value === trueValue()"
+    [disabled]="isDisabled"
+    (change)="toggle()"
+  />
+  {{ labelTxt() }}
+</label>
