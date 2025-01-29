@@ -9,6 +9,10 @@
     background-color: colors.$white;
     border: 1px solid colors.$gray-light;
 
+    tbody {
+        position: relative;
+    }
+
     th,
     td {
         padding: 12px;
@@ -56,5 +60,14 @@
     .table-actions {
         @include mixins.flex-align-center;
         gap: 16px;
+    }
+
+    .no-data-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        white-space: nowrap;
     }
 }

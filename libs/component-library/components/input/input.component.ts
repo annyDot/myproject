@@ -6,6 +6,7 @@ import {
   forwardRef,
   input,
   model,
+  output,
 } from '@angular/core';
 import {
   ControlValueAccessor,
@@ -47,6 +48,7 @@ export class InputComponent implements ControlValueAccessor {
   invalid = input(false);
   errorMessage = input('');
   value = model('');
+  output = output<string>();
 
   onChange = (v: string) => {};
   onTouched = () => {};
@@ -71,5 +73,6 @@ export class InputComponent implements ControlValueAccessor {
     const inputElement = event.target as HTMLInputElement;
     this.writeValue(inputElement.value);
     this.onChange(this.value());
+    this.output.emit(this.value());
   }
 }

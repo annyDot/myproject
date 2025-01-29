@@ -1,3 +1,7 @@
+@if(globalFiltering()) {
+<app-input type="search" (output)="filterData($event)" />
+}
+
 <table class="custom-table" data-testid="table">
   <thead>
     <tr>
@@ -18,8 +22,8 @@
     </tr>
   </thead>
   <tbody>
-    @if(data().length) { @for (item of data(); track item; let i = $index; let
-    even = $even;) {
+    @if(filteredData().length) { @for (item of filteredData(); track item; let i
+    = $index; let even = $even;) {
     <tr
       [ngClass]="{ even, selected: selectedRow === item }"
       (click)="onRowClick(item)"
@@ -54,6 +58,12 @@
         }
       </td>
     </tr>
-    } } @else { No data. }
+    } } @else {
+    <tr>
+      <td>
+        <div class="no-data-container">No data.</div>
+      </td>
+    </tr>
+    }
   </tbody>
 </table>

@@ -1,13 +1,11 @@
 {
   "name": "@myproject/source",
-  "homepage": "https://annydot.github.io/myproject",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "nx serve myproject",
     "build": "nx build myproject",
     "watch": "nx build --watch --configuration development",
-    "deploy": "gh-pages -d dist/myproject",
     "test": "nx test myproject",
     "lint": "nx lint myproject"
   },
@@ -24,6 +22,7 @@
     "@angular/platform-browser": "^19.0.0",
     "@angular/platform-browser-dynamic": "^19.0.0",
     "@angular/router": "^19.0.0",
+    "@ngrx/component": "^19.0.0",
     "@ngrx/operators": "^19.0.0",
     "@ngrx/signals": "^19.0.0",
     "@testing-library/angular": "^17.3.5",
