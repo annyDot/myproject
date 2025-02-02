@@ -53,7 +53,7 @@ npx nx test myproject
 - Run deploy for `myproject`:
 
   ```bash
-  npx nx run myproject:deploy
+  npx nx run myproject:deploy --base-href=/myproject/
   ```
 
 ## Learn More
