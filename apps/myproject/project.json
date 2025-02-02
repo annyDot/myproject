@@ -98,25 +98,8 @@
       "replace": "apps/myproject/src/environments/environment.ts",
       "with": "apps/myproject/src/environments/environment.prod.ts"
     },
-    "predeploy": {
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": [
-          "npx nx build myproject --base-href /myproject/ --deploy-url /myproject/",
-          "npx nx compodoc myproject"
-        ],
-        "parallel": false
-      }
-    },
     "deploy": {
-      "executor": "nx-github-pages:deploy",
-      "dependsOn": [
-        "predeploy"
-      ],
-      "options": {
-        "remote": "git@github.com:annydot/myproject.git",
-        "directory": "dist/apps/myproject/browser"
-      }
+      "executor": "angular-cli-ghpages:deploy"
     }
   }
 }
