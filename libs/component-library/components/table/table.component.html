@@ -1,5 +1,9 @@
 @if(globalFiltering()) {
-<app-input type="search" (output)="filterData($event)" />
+<app-input
+  type="search"
+  (output)="filterData($event)"
+  [placeholder]="'Search...'"
+/>
 }
 
 <table class="custom-table" data-testid="table">
