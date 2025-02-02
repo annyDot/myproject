@@ -48,6 +48,14 @@ npx nx test myproject
   npx nx lint myproject
   ```
 
+## Deploy
+
+- Run deploy for `myproject`:
+
+  ```bash
+  npx nx run myproject:deploy
+  ```
+
 ## Learn More
 
 For more details about Nx, visit the [Nx documentation](https://nx.dev/). For Angular-specific tools and information, check the [Angular documentation](https://angular.dev).
