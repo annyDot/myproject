@@ -1,14 +1,7 @@
-<div class="input-container" [ngClass]="{ invalid: invalid() }">
+<div class="input-container" [class]="{ invalid: invalid() }">
   <label [for]="id()">{{ labelTxt() }}</label>
-  <input
-    data-testid="input"
-    [type]="type()"
-    [disabled]="disabled()"
-    [placeholder]="placeholder()"
-    [(ngModel)]="value"
-    (input)="onInputChange($event)"
-    (blur)="onTouched()"
-  />
+  <input data-testid="input" [type]="type()" [disabled]="disabled()" [placeholder]="placeholder()" [(ngModel)]="value"
+    (input)="onInputChange($event)" (blur)="onTouched()" />
   @if (invalid() && errorMessage()) {
   <p class="error-message">{{ errorMessage() }}</p>
   }
