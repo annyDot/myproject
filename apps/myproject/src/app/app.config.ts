@@ -2,6 +2,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { provideRouter } from '@angular/router';
+import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { routes } from './app.routes';
 import { environment } from './environments/environment';
@@ -14,6 +15,7 @@ export const appConfig: ApplicationConfig = {
     provideKeycloakAngular(),
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideHttpClient(),
+    provideStore(),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: environment.production,
