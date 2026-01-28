@@ -11,7 +11,7 @@ import { UserService } from 'apps/myproject/src/app/api-services/user/user.api.s
 import { User } from 'apps/myproject/src/app/shared/models/user.model';
 import { ModalService } from 'apps/myproject/src/app/shared/services/modal.service';
 import { StoreIdValue } from 'apps/myproject/src/app/shared/stores/store-ids';
-import { EMPTY, pipe, switchMap } from 'rxjs';
+import { EMPTY, filter, pipe, switchMap } from 'rxjs';
 import { UserFormComponent } from '../../components/user-form/user-form.component';
 import { UserState } from '../user.store';
 
@@ -44,25 +44,23 @@ export function withUserEdit<_>(storeId: StoreIdValue) {
                 },
               }),
             ),
-            switchMap((event) => {
-              if (event && event.type === 'save') {
-                return userService.update(event.data).pipe(
-                  tapResponse({
-                    next: (updatedUser) => {
-                      patchState(store, {
-                        data: store
-                          .data()
-                          .map((user) =>
-                            user.id === updatedUser.id ? updatedUser : user,
-                          ),
-                      });
-                    },
-                    error: () => EMPTY,
-                  }),
-                );
-              }
-              return EMPTY;
-            }),
+            filter((event) => event?.type === 'save'),
+            switchMap(({ data }) =>
+              userService.update(data).pipe(
+                tapResponse({
+                  next: (updatedUser) => {
+                    patchState(store, {
+                      data: store
+                        .data()
+                        .map((user) =>
+                          user.id === updatedUser.id ? updatedUser : user,
+                        ),
+                    });
+                  },
+                  error: () => EMPTY,
+                }),
+              ),
+            ),
           ),
         ),
       }),
