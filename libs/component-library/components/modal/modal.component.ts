@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {
   Component,
   ComponentRef,
@@ -17,7 +16,7 @@ export const MODAL_DATA = new InjectionToken<any>('MODAL_DATA');
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
-  imports: [CommonModule, IconComponent],
+  imports: [IconComponent],
 })
 export class ModalComponent {
   @Input() component!: any;

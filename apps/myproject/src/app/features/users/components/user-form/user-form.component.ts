@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -22,14 +21,13 @@ import {
   ModalButton,
   ModalEvent,
 } from '@component-library/components';
+import { User } from 'apps/myproject/src/app/shared/models/user.model';
 import { UserForm, UserFormMode } from '../../models/user-form';
-import { User } from '../../models/user.interface';
 
 @Component({
   selector: 'app-user-form',
   templateUrl: './user-form.component.html',
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     InputComponent,
     ButtonComponent,

@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -18,7 +17,7 @@ import {
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
-  imports: [CommonModule, IconComponent, InputComponent],
+  imports: [IconComponent, InputComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableComponent {
@@ -42,8 +41,8 @@ export class TableComponent {
       this.getColumnKeys().some((key) =>
         String(item[this.configuration().columns[key].displayValue] || '')
           .toLowerCase()
-          .includes(query)
-      )
+          .includes(query),
+      ),
     );
   });
 
