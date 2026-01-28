@@ -6,8 +6,8 @@ import {
   TableComponent,
   TableData,
 } from '@component-library/components';
-import { User } from '../../models/user.interface';
-import { UserStore } from '../../users.store';
+import { User } from '../models/user.interface';
+import { UserStore } from '../store/user.store';
 
 @Component({
   selector: 'app-users',
@@ -21,7 +21,7 @@ export class UsersComponent {
   store = inject(UserStore);
 
   addUser(): void {
-    this.store.addUser$();
+    this.store.add$();
   }
 
   onTableAction(event: {
@@ -30,9 +30,9 @@ export class UsersComponent {
   }): void {
     const { action, selectedRow: user } = event;
     if (action.name === 'edit') {
-      this.store.editUser$(user as User);
+      this.store.edit$(user as User);
     } else if (action.name === 'view') {
-      this.store.viewUser$(user as User);
+      this.store.info$(user as User);
     }
   }
 }
