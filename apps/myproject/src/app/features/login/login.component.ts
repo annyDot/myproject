@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ButtonComponent } from '@component-library/components';
 import { AuthService } from '../../shared/services/auth.service';
@@ -6,7 +5,7 @@ import { AuthService } from '../../shared/services/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  imports: [CommonModule, ButtonComponent],
+  imports: [ButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent {
