@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -17,7 +18,7 @@ import {
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
-  imports: [IconComponent, InputComponent],
+  imports: [IconComponent, InputComponent, CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableComponent {

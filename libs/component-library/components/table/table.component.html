@@ -1,9 +1,5 @@
 @if(globalFiltering()) {
-<app-input
-  type="search"
-  (output)="filterData($event)"
-  [placeholder]="'Search...'"
-/>
+<app-input type="search" (output)="filterData($event)" [placeholder]="'Search...'" />
 }
 
 <table class="custom-table" data-testid="table">
@@ -28,24 +24,16 @@
   <tbody>
     @if(filteredData().length) { @for (item of filteredData(); track item; let i
     = $index; let even = $even;) {
-    <tr
-      [ngClass]="{ even, selected: selectedRow === item }"
-      (click)="onRowClick(item)"
-    >
+    <tr [class]="{ even, selected: selectedRow === item }" (click)="onRowClick(item)">
       @for (key of getColumnKeys(); track key) {
       <td>
         @if (configuration().columns[key].useBooleanIcons) {
-        <app-icon
-          #appIcon
-          [color]="appIcon.icon() === 'check' ? 'green' : 'red'"
-          [icon]="
+        <app-icon #appIcon [color]="appIcon.icon() === 'check' ? 'green' : 'red'" [icon]="
             getBooleanIcon(
               configuration().columns[key],
               item[configuration().columns[key].displayValue]
             )
-          "
-          [tooltip]="item[configuration().columns[key].displayValue]"
-        />
+          " [tooltip]="item[configuration().columns[key].displayValue]" />
         } @else {
         {{ item[configuration().columns[key].displayValue] }}
         }
@@ -53,12 +41,8 @@
       }
       <td class="table-actions">
         @for (action of configuration().actions; track action.name) {
-        <app-icon
-          [icon]="action.icon"
-          (click)="onActionClick(action, item)"
-          [color]="selectedRow === item ? 'white' : ''"
-          [tooltip]="action.name"
-        />
+        <app-icon [icon]="action.icon" (click)="onActionClick(action, item)"
+          [color]="selectedRow === item ? 'white' : ''" [tooltip]="action.name" />
         }
       </td>
     </tr>

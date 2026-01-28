@@ -1,10 +1,4 @@
-<span
-  data-testid="icon"
-  class="material-icons"
-  [ngClass]="class()"
-  [ngStyle]="{ fontSize: size(), color: color() }"
-  [matTooltip]="tooltip()"
-  matTooltipClass="custom-tooltip"
->
+<span data-testid="icon" [class]="'material-icons ' + class()" [style]="{ fontSize: size(), color: color() }"
+  [matTooltip]="tooltip()" matTooltipClass="custom-tooltip">
   {{ icon() }}
 </span>

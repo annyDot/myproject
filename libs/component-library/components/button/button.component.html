@@ -1,9 +1,3 @@
-<button
-  class="btn"
-  data-testid="button"
-  [ngClass]="class()"
-  [type]="type()"
-  [disabled]="disabled()"
->
+<button data-testid="button" [class]="'btn ' + class()" [type]="type()" [disabled]="disabled()">
   <ng-content></ng-content>
 </button>
