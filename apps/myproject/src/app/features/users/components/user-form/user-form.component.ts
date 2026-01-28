@@ -40,7 +40,7 @@ import { User } from '../../models/user.interface';
 })
 export class UserFormComponent implements Modal, OnInit {
   @Input() buttons: ModalButton[] = [];
-  @Input() mode: UserFormMode = UserFormMode.VIEW;
+  @Input() mode: UserFormMode = UserFormMode.INFO;
   @Input() user!: User;
   modalOutput = output<ModalEvent['data']>();
 
@@ -72,7 +72,7 @@ export class UserFormComponent implements Modal, OnInit {
   }
 
   ngOnInit(): void {
-    if (this.mode === UserFormMode.VIEW) {
+    if (this.mode === UserFormMode.INFO) {
       this.form.patchValue(this.user);
       this.form.disable();
     }

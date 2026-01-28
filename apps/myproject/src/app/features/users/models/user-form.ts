@@ -1,7 +1,7 @@
 import { FormControl } from '@angular/forms';
 
 export enum UserFormMode {
-  VIEW = 'view',
+  INFO = 'info',
   ADD = 'add',
   EDIT = 'edit',
 }
